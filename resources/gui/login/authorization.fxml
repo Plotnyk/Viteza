@@ -35,7 +35,7 @@
          <font>
             <Font size="24.0" />
          </font></Label>
-        <TextField fx:id="fldLogin" promptText="Логин" GridPane.columnIndex="1" />
+        <TextField fx:id="fldLogin" prefHeight="25.0" prefWidth="135.0" promptText="Логин" GridPane.columnIndex="1" />
         <PasswordField fx:id="fldPassword" promptText="Пароль" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <Button fx:id="btnOk" mnemonicParsing="false" onAction="#onActionButtonOkClick" prefHeight="25.0" prefWidth="129.0" text="ОК" GridPane.rowIndex="2">
          <GridPane.margin>

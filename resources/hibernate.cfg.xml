@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Подключаем драйвер -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!-- Настройки подключения к БД -->
+        <property name="connection.url">jdbc:mysql://localhost:3306/hibernate</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
+        <!-- Три режима работы Hibernate
+            - create      - Создание схемы БД + Всех необходимых табличек
+            - update      - Обновление и синхронизация данных
+            - create-drop - Создание схемы БД с последующим удалением по
+                            завершению работы программы -->
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <property name="connection.pool_size">3</property>
+        <property name="hibernate.show_sql">true</property>
+
+        <mapping class="entity.Employee"/>
+        <mapping class="entity.User"/>
+
+    </session-factory>
+</hibernate-configuration>
