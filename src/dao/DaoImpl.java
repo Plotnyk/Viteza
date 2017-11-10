@@ -39,7 +39,7 @@ public class DaoImpl<T> implements Dao<T> {
         Session session = factory.openSession();
         session.beginTransaction();
         T mpl = session.load((Class<T>) type,obj);
-        return (T) mpl;
+        return mpl;
     }
 
 
@@ -77,8 +77,15 @@ public class DaoImpl<T> implements Dao<T> {
     public List<T> getAll() {
         return factory
                 .openSession()
-                .createCriteria(type)
+                .createQuery("from entity.Employee")
                 .list();
     }
 
+
+/*    public List<T> getAll() {
+        return factory
+                .openSession()
+                .createCriteria(type)
+                .list();
+    }*/
 }
