@@ -21,8 +21,6 @@
         <property name="connection.pool_size">3</property>
         <property name="hibernate.show_sql">true</property>
 
-        <mapping class="entity.Employee"/>
-        <mapping class="entity.User"/>
 
     </session-factory>
 </hibernate-configuration>
