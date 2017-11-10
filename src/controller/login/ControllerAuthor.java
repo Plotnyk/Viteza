@@ -2,9 +2,6 @@ package controller.login;
 
 import javafx.fxml.FXML;
 
-/**
- * Created by Женя on 08.11.2017.
- */
 public class ControllerAuthor {
 
     @FXML
