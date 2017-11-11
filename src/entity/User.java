@@ -15,7 +15,7 @@ import java.util.Date;
 public class User {
     @Id
     @Column(name = "USER_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "LOGIN")
@@ -24,7 +24,7 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
-    // @Column(name = "DATE")
+    @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
     private Date date;
 
