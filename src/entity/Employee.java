@@ -22,7 +22,6 @@ import java.util.Date;
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee {
-
     @Id
     @Column(name = "EMPLOYEE_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,10 +44,6 @@ public class Employee {
     @Column(name = "POSITION")
     @Enumerated(EnumType.STRING)
     private PositionType positionType;
-
-   /* //@Column(name = "USER")
-    @OneToOne
-    private User user;*/
 
     public Employee() {
     }

@@ -24,13 +24,15 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
-  //  @Column(name = "DATE")
+    @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    // @Column(name = "EMPLOYEE")
+    @Column(name = "EMPLOYEE")
     @OneToOne
     private Employee employee;
+
+    public User() {    }
 
     public User(String login, String password, Date date, Employee employee) {
         this.login = login;

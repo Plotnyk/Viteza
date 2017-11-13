@@ -1,82 +1,64 @@
 package dao;
 
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import util.HibernateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Locale;
 
+@Repository
+@Transactional
 public class DaoImpl<T> implements Dao<T> {
+
+    @Autowired
     private SessionFactory factory;
     private Class<T> type;
 
-    public DaoImpl(Class type){
+    public DaoImpl(Class<T> type){
         Locale.setDefault(Locale.ENGLISH);
-        factory = HibernateUtil.factory();
-        this.type = (Class<T>)type;
+        this.type = type;
     }
+
     @Override
     public Long create(T obj) {
-        Session session = factory.openSession();
-        try{
-            session.beginTransaction();
-            Long id = (Long) session.save(obj);
-            session.getTransaction().commit();
-            return id;
-        } catch (HibernateException e){
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-        return null;
+        return (Long)factory.getCurrentSession().save(obj);
     }
 
     @Override
-    public <T> T read(Long obj) {
-        Session session = factory.openSession();
-        session.beginTransaction();
-        T mpl = session.load((Class<T>) type,obj);
-        return mpl;
+    public <T> T read(Long id) {
+        return (T)factory.getCurrentSession().get(type, id);
     }
 
 
     @Override
-    public void update(T obj) {
-        Session session = factory.openSession();
-        try{
-            session.beginTransaction();
-            session.update(obj);
-            session.getTransaction().commit();
-        } catch (HibernateException e){
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
+    public boolean update(T obj) {
+        try {
+            factory.getCurrentSession().saveOrUpdate(obj);
+            return true;
+        } catch (HibernateException e) {
+            factory.getCurrentSession().getTransaction().rollback();
+            return false;
         }
     }
 
     @Override
     public boolean delete(T obj) {
-        Session session = factory.openSession();
         try {
-            session.beginTransaction();
-            session.delete(obj);
-            session.getTransaction().commit();
+            factory.getCurrentSession().delete(obj);
             return true;
         } catch (HibernateException e) {
-            session.getTransaction().rollback();
+            factory.getCurrentSession().getTransaction().rollback();
             return false;
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public List<T> getAll() {
         return factory
-                .openSession()
+                .getCurrentSession()
                 .createCriteria(type)
                 .list();
     }
