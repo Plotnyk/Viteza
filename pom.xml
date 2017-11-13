@@ -32,6 +32,7 @@
         <org.junit.ver>4.12</org.junit.ver>
         <org.mysql.version>5.1.40</org.mysql.version>
         <org.hibernate.version>5.0.2.Final</org.hibernate.version>
+        <org.springframework.version>4.3.10.RELEASE</org.springframework.version>
     </properties>
 
     <!-- Данный блок включает все необходимые библиотеки
@@ -66,6 +67,33 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${org.hibernate.version}</version>
+        </dependency>
+        <!--Настройка и подключение Spring Framework-->
+        <!-- Spring IoC-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <!-- Настройка взаимодействия с БД -->
+        <!-- Spring IoC + Hibernate + @Transactional-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
     </dependencies>
 

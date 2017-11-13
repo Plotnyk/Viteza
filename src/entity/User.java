@@ -24,7 +24,7 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "DATE")
+  //  @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
     private Date date;
 

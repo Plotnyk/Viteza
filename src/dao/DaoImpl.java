@@ -77,15 +77,9 @@ public class DaoImpl<T> implements Dao<T> {
     public List<T> getAll() {
         return factory
                 .openSession()
-                .createQuery("from entity.Employee")
+                .createCriteria(type)
                 .list();
     }
 
 
-/*    public List<T> getAll() {
-        return factory
-                .openSession()
-                .createCriteria(type)
-                .list();
-    }*/
 }
