@@ -1,42 +1,37 @@
 package dao;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Locale;
 
 @Repository
 @Transactional
-public class DaoImpl<T> implements Dao<T> {
+public class DaoImpl<T> implements Dao<T> {   //<T extends Serializable>
 
     @Autowired
     private SessionFactory factory;
-    private Class<T> type;
 
-    public DaoImpl(Class<T> type){
-        Locale.setDefault(Locale.ENGLISH);
-        this.type = type;
+
+    private Class<T> clazz;
+
+    @Override
+    public void setClazz(Class<T> clazzToSet) {
+        this.clazz = clazzToSet;
+    }
+
+    protected Session currentSession() {
+        return factory.getCurrentSession();
     }
 
     @Override
-    public Long create(T obj) {
-        return (Long)factory.getCurrentSession().save(obj);
-    }
-
-    @Override
-    public <T> T read(Long id) {
-        return (T)factory.getCurrentSession().get(type, id);
-    }
-
-
-    @Override
-    public boolean update(T obj) {
+    public boolean saveOrUpdate(T entity) {
         try {
-            factory.getCurrentSession().saveOrUpdate(obj);
+            factory.getCurrentSession().saveOrUpdate(entity);
             return true;
         } catch (HibernateException e) {
             factory.getCurrentSession().getTransaction().rollback();
@@ -45,9 +40,31 @@ public class DaoImpl<T> implements Dao<T> {
     }
 
     @Override
-    public boolean delete(T obj) {
+    public Long create(T entity) {
+        return (Long)factory.getCurrentSession().save(entity);
+    }
+
+    @Override
+    public <T> T read(Long entityId) {
+        return (T)factory.getCurrentSession().get(clazz, entityId);
+    }
+
+
+    @Override
+    public boolean update(T entity) {
         try {
-            factory.getCurrentSession().delete(obj);
+            factory.getCurrentSession().save(entity);
+            return true;
+        } catch (HibernateException e) {
+            factory.getCurrentSession().getTransaction().rollback();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(T entity) {
+        try {
+            factory.getCurrentSession().delete(entity);
             return true;
         } catch (HibernateException e) {
             factory.getCurrentSession().getTransaction().rollback();
@@ -59,8 +76,7 @@ public class DaoImpl<T> implements Dao<T> {
     public List<T> getAll() {
         return factory
                 .getCurrentSession()
-                .createCriteria(type)
-                .list();
+                .createQuery("from" + clazz.getName()).list();
     }
 
 

@@ -1,15 +1,14 @@
 package controller.login;
 
-import service.ServiceInterface;
+import service.ServiceEmployee;
 import entity.User;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import service.ServiceInterfaceImpl;
+import service.ServiceEmployeeImpl;
 
 import java.util.Date;
 
@@ -17,7 +16,7 @@ import java.util.Date;
  * Created by Женя on 10.11.2017.
  */
 public class ControllerListEmpl {
-        private ServiceInterface serviceInterface;
+        private ServiceEmployee serviceInterface;
 
         private ObservableList<User> observableList;
 
@@ -37,9 +36,9 @@ public class ControllerListEmpl {
 
         @FXML
         private void initialize(){
-            serviceInterface = new ServiceInterfaceImpl();
+            serviceInterface = new ServiceEmployeeImpl();
 
-            observableList = FXCollections.observableArrayList(serviceInterface.getAll());
+           // observableList = FXCollections.observableArrayList(serviceInterface.getAll());
 
             colId.setCellValueFactory(new PropertyValueFactory<User,Long>("ID"));
             colName.setCellValueFactory(new PropertyValueFactory<User,String>("NAME"));
@@ -58,7 +57,7 @@ public class ControllerListEmpl {
 
         @FXML
         private void fire(){
-            serviceInterface.delete(fldTabView.getSelectionModel().getSelectedItem());
+           // serviceInterface.remove(fldTabView.getSelectionModel().getSelectedItem());
 //        Здається правильно, перевіриш коли будеш збирати все разом
         }
 

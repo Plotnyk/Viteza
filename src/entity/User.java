@@ -11,10 +11,9 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "USERS")
+@Table
 public class User {
     @Id
-    @Column(name = "USER_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -28,7 +27,6 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @Column(name = "EMPLOYEE")
     @OneToOne
     private Employee employee;
 

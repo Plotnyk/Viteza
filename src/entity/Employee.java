@@ -20,28 +20,27 @@ import java.util.Date;
  - Логин (в системе)
  */
 @Entity
-@Table(name = "EMPLOYEE")
+@Table
 public class Employee {
     @Id
-    @Column(name = "EMPLOYEE_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column (name = "SURNAME")
+    @Column
     private String surname;
 
-    @Column (name = "NAME")
+    @Column
     private String name;
 
-    @Column(name = "DATE_BIRTH")
+    //@Column(name = "DATE_BIRTH")
     @Temporal(TemporalType.DATE)
     private Date dateBirth;
 
-    @Column(name = "DATE_EMPLOYMENT")
+    //@Column(name = "DATE_EMPLOYMENT")
     @Temporal(TemporalType.DATE)
     private Date dateEmployment;
 
-    @Column(name = "POSITION")
+    //@Column(name = "POSITION")
     @Enumerated(EnumType.STRING)
     private PositionType positionType;
 
